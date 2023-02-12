@@ -8,9 +8,9 @@ In this article, we'll take a look at some of the most important HTTP security h
 The X-XSS-Protection header is used to enable the built-in XSS protection offered by some browsers. This header tells the browser to attempt to block detected XSS attacks.
 
 Recommended Value: 
-@@@
+```
 X-XSS-Protection: 1; mode=block
-@@@
+```
 
 Testing Tips:
 - Test your site with known XSS payloads to ensure that the header is correctly blocking the execution of malicious content.
@@ -19,7 +19,7 @@ Testing Tips:
 Sample Configurations:
 
 **IIS**
-@@@
+```
 <system.webServer>
   <httpProtocol>
     <customHeaders>
@@ -27,32 +27,32 @@ Sample Configurations:
     </customHeaders>
   </httpProtocol>
 </system.webServer>
-@@@
+```
 
 **Apache**
-@@@
+```
 Header set X-XSS-Protection "1; mode=block"
-@@@
+```
 
 **Nginx**
-@@@
+```
 add_header X-XSS-Protection "1; mode=block";
-@@@
+```
 
 **Traefik**
-@@@
+```
 [http.middlewares.security-headers.headers]
 X-XSS-Protection = "1; mode=block"
-@@@
+```
 
 ## X-Content-Type-Options
 
 The X-Content-Type-Options header is used to prevent browsers from interpreting files as a different MIME type. This can help protect against certain types of attacks, such as XSS and data injection.
 
 Recommended Value: 
-@@@
+```
 X-Content-Type-Options: nosniff
-@@@
+```
 
 Testing Tips:
 - Check the browser's developer tools to verify that the header is being sent and that it has the correct value.
@@ -61,7 +61,7 @@ Testing Tips:
 Sample Configurations:
 
 **IIS**
-@@@
+```
 <system.webServer>
   <httpProtocol>
     <customHeaders>
@@ -69,15 +69,15 @@ Sample Configurations:
     </customHeaders>
   </httpProtocol>
 </system.webServer>
-@@@
+```
 
 **Apache**
-@@@
+```
 Header set X-Content-Type-Options "nosniff"
-@@@
+```
 
 **Tomcat**
-@@@
+```
 <filter>
   <filter-name>httpHeaderSecurity</filter-name>
   <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
@@ -95,18 +95,18 @@ Header set X-Content-Type-Options "nosniff"
   <filter-name>httpHeaderSecurity</filter-name>
   <url-pattern>/*</url-pattern>
 </filter-mapping>
-@@@
+```
 
 **Nginx**
-@@@
+```
 add_header X-Content-Type-Options "nosniff";
-@@@
+```
 
 **Traefik**
-@@@
+```
 [http.middlewares.security-headers.headers]
 X-Content-Type-Options = "nosniff"
-@@@
+```
 
 
 ## Strict-Transport-Security (HSTS)
@@ -114,9 +114,9 @@ X-Content-Type-Options = "nosniff"
 The Strict-Transport-Security header is used to tell browsers that the site should only be accessed over HTTPS. This helps to prevent SSL stripping attacks, in which an attacker intercepts an insecure connection and downgrades it to an unencrypted connection.
 
 Recommended Value: 
-@@@
+```
 Strict-Transport-Security: max-age=31536000; includeSubDomains
-@@@
+```
 
 Testing Tips:
 - Check the browser's developer tools to verify that the header is being sent and that it has the correct value.
@@ -125,7 +125,7 @@ Testing Tips:
 Sample Configurations:
 
 **IIS**
-@@@
+```
 <system.webServer>
   <httpProtocol>
     <customHeaders>
@@ -133,15 +133,15 @@ Sample Configurations:
     </customHeaders>
   </httpProtocol>
 </system.webServer>
-@@@
+```
 
 **Apache**
-@@@
+```
 Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
-@@@
+```
 
 **Tomcat**
-@@@
+```
 <filter>
   <filter-name>httpHeaderSecurity</filter-name>
   <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
@@ -159,18 +159,18 @@ Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
   <filter-name>httpHeaderSecurity</filter-name>
   <url-pattern>/*</url-pattern>
 </filter-mapping>
-@@@
+```
 
 **Nginx**
-@@@
+```
 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
-@@@
+```
 
 **Traefik**
-@@@
+```
 [http.middlewares.security-headers.headers]
 Strict-Transport-Security = "max-age=31536000; includeSubDomains"
-@@@
+```
 
 
 ## X-Frame-Options
@@ -178,9 +178,9 @@ Strict-Transport-Security = "max-age=31536000; includeSubDomains"
 The X-Frame-Options header is used to prevent a page from being displayed in a frame, iframe, or object. This helps to prevent clickjacking attacks, in which an attacker creates a hidden frame on their site that displays a target site, and tricks the user into clicking on a link or button that performs an unintended action.
 
 Recommended Value: 
-@@@
+```
 X-Frame-Options: DENY
-@@@
+```
 
 Testing Tips:
 - Check the browser's developer tools to verify that the header is being sent and that it has the correct value.
@@ -189,7 +189,7 @@ Testing Tips:
 Sample Configurations:
 
 **IIS**
-@@@
+```
 <system.webServer>
   <httpProtocol>
     <customHeaders>
@@ -197,15 +197,15 @@ Sample Configurations:
     </customHeaders>
   </httpProtocol>
 </system.webServer>
-@@@
+```
 
 **Apache**
-@@@
+```
 Header set X-Frame-Options "DENY"
-@@@
+```
 
 **Tomcat**
-@@@
+```
 <filter>
   <filter-name>httpHeaderSecurity</filter-name>
   <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
@@ -223,18 +223,18 @@ Header set X-Frame-Options "DENY"
   <filter-name>httpHeaderSecurity</filter-name>
   <url-pattern>/*</url-pattern>
 </filter-mapping>
-@@@
+```
 
 **Nginx**
-@@@
+```
 add_header X-Frame-Options "DENY";
-@@@
+```
 
 **Traefik**
-@@@
+```
 [http.middlewares.security-headers.headers]
 X-Frame-Options = "DENY"
-@@@
+```
 
 ## Content-Security-Policy
 
@@ -261,15 +261,15 @@ The following directives are available for use in a Content-Security-Policy head
 
 The recommended value for a Content-Security-Policy header will vary depending on the requirements of your site and the types of content that you serve. A common starting point is to use the following policy:
 
-@@@
+```
 Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; font-src 'self';
-@@@
+```
 
 This policy allows content from the same origin (the site serving the content) for all types of content. If you need to allow content from other sources, you can add them to the appropriate directive, separated by spaces. For example:
 
-@@@
+```
 Content-Security-Policy: default-src 'self'; script-src 'self' https://example.com; style-src 'self' https://example.com; img-src 'self' https://example.com; connect-src 'self' https://example.com; font-src 'self' https://example.com;
-@@@
+```
 
 This policy allows content from the same origin and from the `https://example.com` source for all types of content.
 
@@ -286,16 +286,16 @@ This policy allows content from the same origin and from the `https://example.co
 #### Apache
 To configure the Content-Security-Policy header in Apache, add the following code in your `.htaccess` file or the Apache configuration file:
 
-@@@
+```
 Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';"
-@@@
+```
 
 #### Nginx
 To configure the Content-Security-Policy header in Nginx, add the following code in your Nginx configuration file:
 
-@@@
+```
 add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';";
-@@@
+```
 
 
 #### IIS
@@ -312,7 +312,7 @@ To configure the Content-Security-Policy header in IIS, follow these steps:
 #### Tomcat
 To configure the Content-Security-Policy header in Tomcat, add the following code to your web application's `web.xml` file:
 
-@@@
+```
 <filter>
   <filter-name>CSPFilter</filter-name>
   <filter-class>org.apache.catalina.filters.CspFilter</filter-class>
@@ -325,7 +325,7 @@ To configure the Content-Security-Policy header in Tomcat, add the following cod
   <filter-name>CSPFilter</filter-name>
   <url-pattern>/*</url-pattern>
 </filter-mapping>
-@@@
+```
 
 ## Referrer-Policy
 The Referrer-Policy header is used to control the behavior of the Referer header, which is sent to a server to indicate the page that linked to the current page. The Referrer-Policy header allows a web page to specify the amount of information that is sent in the Referer header, if any. This can help to reduce the amount of sensitive information that is leaked to other websites, and can also help to improve the privacy of the users of your website.
@@ -346,7 +346,7 @@ Here's how to configure the Referrer-Policy header in various web servers:
 ### IIS
 To configure the Referrer-Policy header in IIS, you can use the following code in your web.config file:
 
-@@@
+```
 <system.webServer>
     <httpProtocol>
         <customHeaders>
@@ -354,26 +354,26 @@ To configure the Referrer-Policy header in IIS, you can use the following code i
         </customHeaders>
     </httpProtocol>
 </system.webServer>
-@@@
+```
 
 ### Apache
 To configure the Referrer-Policy header in Apache, you can use the following code in your .htaccess file:
 
-@@@
+```
 Header set Referrer-Policy "strict-origin-when-cross-origin"
-@@@
+```
 
 ### Nginx
 To configure the Referrer-Policy header in Nginx, you can use the following code in your nginx.conf file:
 
-@@@
+```
 add_header Referrer-Policy "strict-origin-when-cross-origin";
-@@@
+```
 
 ### Tomcat
 To configure the Referrer-Policy header in Tomcat, add the following code to your web application's `web.xml` file:
 
-@@@
+```
 <filter>
   <filter-name>Referrer-Policy</filter-name>
   <filter-class>org.apache.catalina.filters.ReferrerPolicyHeaderFilter</filter-class>
@@ -386,15 +386,15 @@ To configure the Referrer-Policy header in Tomcat, add the following code to you
   <filter-name>Referrer-Policy</filter-name>
   <url-pattern>/*</url-pattern>
 </filter-mapping>
-@@@
+```
 
 ### Traefik
 To configure the Referrer-Policy header in Traefik, you can add the following code to your Traefik configuration file:
 
-@@@
+```
 [http.middlewares.referrerPolicy.headers]
   ReferrerPolicy = "no-referrer"
-@@@
+```
 
 Note that you may need to adjust the value for "ReferrerPolicy" to meet your specific needs. You can find more information on the available values and their meanings in the specification for the Referrer-Policy header.
 
